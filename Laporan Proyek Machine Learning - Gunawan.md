@@ -59,9 +59,13 @@ EDA adalah langkah kritis dalam analisis data yang memungkinkan kita untuk memah
 
 #### Distribusi Data
 Untuk melihat distribusi data dari kolom numerik dapat digunakan boxplot. Untuk mempermudah analisis, kolom dibagi menjadi kolom numerikal dan kolom kategorikal. Walaupun Churn, CityTier, dan Complain bertipe data integer, ketiga kolom ini akan masuk ke dalam klasifikasi kategorikal karena kolom tersebut mewakili kategori atau flagging.
+
 ![Gambar01](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar01.jpg)
+
 Berdasarkan boxplot di atas, dapat dilihat bahwa hampir seluruh kolom numerik, kecuali SatisfactionScore, memiliki nilai outlier. Hal ini dapat dilihat dari adanya titik-titik yang berada di luar whisker dan ini menunjukkan adanya nilai ekstrem yang perlu dilihat lebih lanjut.
+
 ![Gambar02](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar02.jpg)
+
 1. **Distribusi dari Tenure:**
   - Distribusi cenderung menurun. Sebagian besar pelanggan memiliki tenure yang pendek (0-10 bulan), sedangkan pelanggan dengan tenure lebih lama menjadi semakin sedikit.
 2. **Distribusi dari WarehouseToHome:**
@@ -86,15 +90,21 @@ Berdasarkan boxplot di atas, dapat dilihat bahwa hampir seluruh kolom numerik, k
    - Cashback yang diberikan sebagian besar berkisar antara 100-200. Distribusi ini relatif simetris, dengan penyebaran data yang lebih kecil di kedua sisi rata-rata. 
 
 #### Korelasi Data
+
 ![Gambar03](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar03.jpg)
+
 Fitur dengan dampak terbesar terhadap churn adalah Tenure dengan korelasi negatif yang signifikan, menunjukkan bahwa loyalitas pelanggan meningkat dengan waktu. DaySinceLastOrder dan CashbackAmount juga memiliki efek negatif moderat terhadap churn, yang berarti menjaga pelanggan aktif dengan cashback dapat membantu mengurangi churn. Fitur lain menunjukkan korelasi yang lemah atau tidak signifikan dengan churn.
 
 #### Kordinalitas Data
+
 ![Gambar04](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar04.jpg)
+
 Berdasarkan pengecekan nilai unik pada dataset, pada beberapa kolom, ditemukan beberapa nilai dengan penamaan yang tidak konsisten. Misalnya pada kolom PrefferedLoginDevice terdapat nilai 'Mobile Phone' dan 'Phone' yang merujuk ke perangkat yang sama. Kemudian pada kolom PreferredPaymentMode terdapat 'CC' dan 'Credit Card' yang merujuk kepada penggunaan kartu kredit, serta 'COD' dan 'Cash on Delivery' yang merujuk pada satu metode pembayaran yang sama. Selain itu, pada kolom PreferedOrderCat terdapat 'Mobile' dan 'Mobile Phone' yang merujuk pada kategori yang sama.
 
 #### Identifikasi Nilai Hilang
+
 ![Gambar05](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar05.jpg)
+
 Terdapat 7 (tujuh) kolom yang memiliki nilai hilang, yaitu Tenure, WerehouseToHome, HourSpendOnApp, OrderAmountHikeFromlastYear, CouponUsed, OrderCount, dan DaySinceLastOrder.
 
 Nilai hilang pada dataset ini dapat diklasifikasikan menjadi 3 (tiga), yaitu: 
@@ -114,7 +124,9 @@ Untuk menangani nilai hilang:
 - MNAR: Buat variabel indikator dan gunakan pengetahuan spesifik domain atau pertimbangkan strategi imputasi lanjutan seperti iterative imputer.
 
 #### Identifikasi Duplikasi Nilai
+
 ![Gambar06](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar06.jpg)
+
 Dapat dilihat bahwa tidak terdapat data duplikat yang teridentifikasi.
 
 ## Data Preparation
