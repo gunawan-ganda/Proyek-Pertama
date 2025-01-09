@@ -61,10 +61,61 @@ EDA adalah langkah kritis dalam analisis data yang memungkinkan kita untuk memah
 Untuk melihat distribusi data dari kolom numerik dapat digunakan boxplot. Untuk mempermudah analisis, kolom dibagi menjadi kolom numerikal dan kolom kategorikal. Walaupun Churn, CityTier, dan Complain bertipe data integer, ketiga kolom ini akan masuk ke dalam klasifikasi kategorikal karena kolom tersebut mewakili kategori atau flagging.
 ![Gambar01](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar01.jpg)
 Berdasarkan boxplot di atas, dapat dilihat bahwa hampir seluruh kolom numerik, kecuali SatisfactionScore, memiliki nilai outlier. Hal ini dapat dilihat dari adanya titik-titik yang berada di luar whisker dan ini menunjukkan adanya nilai ekstrem yang perlu dilihat lebih lanjut.
+![Gambar02](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar02.jpg)
+1. **Distribusi dari Tenure:**
+  - Distribusi cenderung menurun. Sebagian besar pelanggan memiliki tenure yang pendek (0-10 bulan), sedangkan pelanggan dengan tenure lebih lama menjadi semakin sedikit.
+2. **Distribusi dari WarehouseToHome:**
+  - Data ini menunjukkan jarak (dalam satuan tertentu) antara gudang ke rumah pelanggan. Sebagian besar jarak antara gudang dan rumah berkisar dalam jarak pendek (0-20), dan jarak lebih jauh menjadi lebih jarang.
+3. **Distribusi dari HourSpendOnApp:**
+  - Distribusi berbentuk unimodal, dengan puncak utama di sekitar 3 jam. Sebagian besar pelanggan menghabiskan waktu sekitar 2-4 jam di aplikasi.
+4. **Distribusi dari NumberOfDeviceRegistered:**
+  - Data ini menunjukkan jumlah perangkat yang terdaftar, dengan puncak signifikan pada angka bulat (3, 4, dan 5). Sebagian besar pelanggan tampaknya mendaftarkan 3 hingga 5 perangkat.
+5. **Distribusi dari SatisfactionScore:**
+  - Distribusi ini hampir normal, dengan mayoritas pelanggan memberikan skor kepuasan sekitar 3 hingga 4, menunjukkan tingkat kepuasan yang cukup baik.
+6. **Distribusi dari NumberOfAddress:**
+  - Sebagian besar pelanggan memiliki kurang dari 5 alamat yang terdaftar. Distribusi sangat tidak merata, dengan lebih sedikit pelanggan memiliki lebih banyak alamat.
+7. **Distribusi dari OrderAmountHikeFromLastYear:**
+  - Distribusi ini menunjukkan banyak pelanggan mengalami kenaikan jumlah pesanan di kisaran 12-20 dari tahun sebelumnya. Namun, kenaikan di atas angka tersebut menjadi semakin langka.
+8. **Distribusi dari CouponUsed:**
+  - Sebagian besar pelanggan tidak menggunakan hingga menggunakan sekitar 2 kupon, tetapi ada pelanggan tertentu yang menggunakan lebih banyak kupon.
+9. **Distribution of OrderCount:**
+  - Sebagian besar pelanggan melakukan 1-2 pesanan. Frekuensi pelanggan dengan jumlah pesanan lebih tinggi menurun drastis.
+10. **Distribution of DaySinceLastOrder:**
+   - Distribusi menunjukkan sebagian besar pelanggan baru saja melakukan pesanan terakhirnya (0-10 hari yang lalu), dengan frekuensi yang turun secara eksponensial untuk hari-hari yang lebih lama.
+11. **Distribution of CashbackAmount:**
+   - Cashback yang diberikan sebagian besar berkisar antara 100-200. Distribusi ini relatif simetris, dengan penyebaran data yang lebih kecil di kedua sisi rata-rata. 
 
 #### Korelasi Data
-
+![Gambar03](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar03.jpg)
 Fitur dengan dampak terbesar terhadap churn adalah Tenure dengan korelasi negatif yang signifikan, menunjukkan bahwa loyalitas pelanggan meningkat dengan waktu. DaySinceLastOrder dan CashbackAmount juga memiliki efek negatif moderat terhadap churn, yang berarti menjaga pelanggan aktif dengan cashback dapat membantu mengurangi churn. Fitur lain menunjukkan korelasi yang lemah atau tidak signifikan dengan churn.
+
+#### Kordinalitas Data
+
+Berdasarkan pengecekan nilai unik pada dataset, pada beberapa kolom, ditemukan beberapa nilai dengan penamaan yang tidak konsisten. Misalnya pada kolom PrefferedLoginDevice terdapat nilai 'Mobile Phone' dan 'Phone' yang merujuk ke perangkat yang sama. Kemudian pada kolom PreferredPaymentMode terdapat 'CC' dan 'Credit Card' yang merujuk kepada penggunaan kartu kredit, serta 'COD' dan 'Cash on Delivery' yang merujuk pada satu metode pembayaran yang sama. Selain itu, pada kolom PreferedOrderCat terdapat 'Mobile' dan 'Mobile Phone' yang merujuk pada kategori yang sama.
+
+#### Identifikasi Nilai Hilang
+
+Terdapat 7 (tujuh) kolom yang memiliki nilai hilang, yaitu Tenure, WerehouseToHome, HourSpendOnApp, OrderAmountHikeFromlastYear, CouponUsed, OrderCount, dan DaySinceLastOrder.
+
+Nilai hilang pada dataset ini dapat diklasifikasikan menjadi 3 (tiga), yaitu: 
+1. Missing Completely at Random (MCAR)
+  - Data MCAR adalah data yang nilai hilangnya tidak memiliki pola tertentu. Fitur WarehouseToHome dan HourSpendOnApp mungkin termasuk dalam kategori MCAR, karena waktu yang dihabiskan di aplikasi atau jarak ke gudang mungkin tidak bergantung pada fitur lainnya.
+  - Pendekatan Penanganan: Karena data MCAR tidak bergantung pada fitur lain, nilai yang hilang dapat diisi dengan nilai rata-rata atau median tanpa menimbulkan bias yang berarti.
+2. Missing at Random (MAR)
+  - Nilai hilang pada MAR berkaitan dengan data lain yang teramati. Fitur seperti Tenure dan OrderAmountHikeFromlastYear bisa termasuk MAR, karena pelanggan dengan masa penggunaan yang lebih singkat mungkin memiliki lebih banyak data yang hilang, dan kebiasaan belanja (sehingga kenaikan jumlah order) dapat berkorelasi dengan masa penggunaan atau waktu penggunaan aplikasi.
+  - Pendekatan Penanganan: Untuk data MAR, metode seperti imputasi berdasarkan fitur yang terkait (misalnya menggunakan pengelompokan berdasarkan masa penggunaan untuk mengisi nilai hilang) atau model prediktif dapat digunakan untuk mengisi nilai hilang berdasarkan pola dalam data yang teramati.
+3. Missing Not at Random (MNAR)
+  - MNAR terjadi ketika nilai hilang terkait dengan nilai dari fitur itu sendiri. Fitur CouponUsed, OrderCount, dan DaySinceLastOrder mungkin termasuk MNAR jika, misalnya, pelanggan yang jarang menggunakan kupon atau jarang memesan memiliki nilai hilang pada fitur-fitur ini, atau ada periode tanpa pesanan baru.
+  - Pendekatan Penanganan: Untuk MNAR, strategi yang efektif meliputi membuat variabel indikator untuk menandai tempat data hilang, karena hilangnya nilai ini bisa saja memiliki informasi penting. Alternatifnya, bisa dipertimbangkan imputasi berdasarkan pengetahuan spesifik domain atau memodelkan missingness langsung jika memungkinkan.
+
+Untuk menangani nilai hilang:
+- MCAR: Gunakan imputasi median.
+- MAR: Gunakan KNN Imputer.
+- MNAR: Buat variabel indikator dan gunakan pengetahuan spesifik domain atau pertimbangkan strategi imputasi lanjutan seperti iterative imputer.
+
+#### Identifikasi Duplikasi Nilai
+
+Dapat dilihat bahwa tidak terdapat data duplikat yang teridentifikasi.
 
 ## Data Preparation
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
