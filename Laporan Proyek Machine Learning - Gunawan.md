@@ -130,11 +130,46 @@ Untuk menangani nilai hilang:
 Dapat dilihat bahwa tidak terdapat data duplikat yang teridentifikasi.
 
 ## Data Preparation
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+### Nilai Tidak Konsisten
+
+Pada beberapa kolom ditemukan beberapa nilai yang tidak konsisten. Misalnya, pada kolom PrefferedLoginDevice terdapat nilai 'Mobile Phone' dan 'Phone' yang merujuk ke perangkat yang sama. Oleh karena itu, dilakukan penggantian nilai untuk menangani hal ini. Selain kolom PrefferedLoginDevice, pada kolom PreferredPaymentMode dan PreferedOrderCat juga ditemukan hal yang sama.
+
+![Gambar07](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar07.jpg)
+
+### Nilai Hilang
+
+Berdasarkan identifikasi missing value sebelumnya, penanganan missing value untuk kolom Tenure dan OrderAmountHikeFromLastYear akan ditangani dengan menggunakan KNNImputer. Sedangkan pada kolom WareHouseToHome dan HourSpendOnApp akan menggunakan nilai median dari masing-masing kolom.
+
+![Gambar08](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar08.jpg)
+
+Penanganan untuk MNAR: 
+1. CouponUsed  
+  - Nilai yang hilang pada CouponUsed dapat terjadi jika pelanggan jarang atau bahkan tidak pernah menggunakan kupon. Pendekatan yang dapat dilakukan adalah mengisi nilai hilang dengan nilai 0 (untuk menandakan bahwa kupon tidak digunakan), atau membuat variabel indikator yang mencatat nilai hilang sebagai kategori khusus, misalnya “Tidak Digunakan”.
+  - Penggunaan kupon umumnya bersifat sporadis atau preferensi tertentu, sehingga asumsi ini logis.
+2. OrderCount  
+  - Pada OrderCount, nilai hilang dapat diasumsikan sebagai tidak adanya pesanan pada periode tertentu. Pendekatan ini dapat diatasi dengan mengisi nilai hilang dengan angka 0 atau membuat indikator khusus untuk menunjukkan adanya periode nonpesanan.
+  - Banyak e-commerce mencatat periode tanpa aktivitas pesanan, sehingga nilai 0 atau variabel indikator dapat memberikan wawasan lebih lanjut.
+
+![Gambar09](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar09.jpg)
+
+3. DaySinceLastOrder  
+  - Jika nilai hilang di kolom DaySinceLastOrder menggambarkan ketidakaktifan atau ketiadaan pesanan, maka mengisi nilai hilang dengan perkiraan tertentu bisa menyesatkan. Menambahkan variabel indikator (flag) untuk menunjukkan pelanggan yang memiliki nilai hilang di kolom ini dapat memberikan insight tambahan. Ini sangat berguna karena memungkinkan analisis terpisah antara pelanggan yang aktif dan tidak aktif.
+  - Tambahkan kolom baru, misalnya NoLastOrderInfo, yang berisi nilai 1 jika DaySinceLastOrder hilang dan 0 jika tidak. Setelah menandai, nilai hilang di DaySinceLastOrder bisa diisi dengan nilai median atau mean.
+  - Jika pelanggan tertentu tidak pernah memesan, maka isi nilai hilangnya dengan median dan berikan indikator 1 pada kolom NoLastOrderInfo. Dengan demikian, kita dapat mensegmentasi pelanggan berdasarkan aktivitas mereka.
+  - Dengan pendekatan ini, kita menggunakan konteks operasional dari e-commerce untuk memastikan bahwa pengisian nilai hilang tetap memberikan informasi yang relevan dan tidak mengaburkan pola dalam data.
+
+### Outlier
+
+Berdasarkan hasil identifikasi sebelumnya, data yang termasuk ke dalam outlier dapat dikatakan cukup banyak sehingga penghapusan memiliki potentsi untuk memengaruhi hasil analisis. Pendekatan penanganan outlier yang dilakukan adalah mengganti nilai outlier dengan nilai ambang batas yang dihitung berdasarkan upper range dan lower range dari masing-masing kolom. Hal ini dilakukan untuk mengurangi pengaruh nilai ekstrim tersebut terhadap model atau analisis tanpa menghapus data.
+
+![Gambar11](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar11.jpg)
+
+### Menghapus Data yang Tidak Dibutuhkan
+
+Berikutnya dapat dilakukan penghapusan kolom yang tidak digunakan untuk analisis, yaitu Customer ID. Kolom CustomerID dapat dihapus karena berisi ID unik pelanggan, dimana ID ini tidak memberikan informasi langsung tentang perilaku atau faktor churn.
+
+![Gambar12](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar12.jpg)
 
 ## Modeling
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
