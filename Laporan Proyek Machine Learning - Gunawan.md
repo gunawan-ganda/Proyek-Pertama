@@ -171,13 +171,87 @@ Berikutnya dapat dilakukan penghapusan kolom yang tidak digunakan untuk analisis
 
 ![Gambar12](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar12.jpg)
 
-## Modeling
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+### Encoding
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+Teknik rekayasa fitur seperti one-hot encoding dan standarisasi sangat penting dalam machine learning karena banyak algoritme tidak dapat menangani data kategorikal atau fitur yang tidak distandarisasi dengan baik (misalnya banyak algoritme seperti regresi linier dan jaringan saraf mengasumsikan bahwa fitur input bersifat numerik dan distandarisasi)
+
+![Gambar13](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar13.jpg)
+
+## Modeling & Evaluation
+
+### Benchmark Model: K-Fold
+
+Akan diuji cross validation 6 jenis model (regresi logistik, K-Nearest Neighbors (KNN), pohon keputusan, random forest, XGBoost, dan LightGBM) dengan parameter default dan jumlah fold 5 untuk melihat model yang terbaik untuk dataset ini. Cross-validation adalah teknik yang sangat penting untuk menguji kinerja model secara lebih robust. Dengan membagi data ke dalam beberapa lipatan dan melatih model pada sebagian data, kemudian menguji pada bagian yang lain, kita mendapatkan gambaran yang lebih baik tentang bagaimana model akan bekerja di data yang belum pernah dilihat sebelumnya.
+
+![Gambar14](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar14.jpg)
+
+Setelah cross-validation, hasil evaluasi untuk masing-masing model (`Logistic Regression`, `KNN`, `Decision Tree`, `Random Forest`, `XGBoost`, dan `LightGBM`) ditampilkan. Hasilnya adalah DataFrame yang menampilkan F1-macro score untuk setiap model, yang digunakan untuk menentukan model terbaik berdasarkan kinerja mereka.
+
+### Benchmark Model: Test Data
+
+![Gambar15](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar15.jpg)
+
+Setelah menjalankan kode ini, hasilnya adalah tabel yang menunjukkan evaluasi dari berbagai model klasifikasi berdasarkan metrik, seperti **precision**, **recall**, **f1-score**, **accuracy**, dan **weighted avg** untuk setiap model yang diuji. Tabel yang ditampilkan mengurutkan model berdasarkan skor **F1-macro**, sehingga model dengan performa terbaik (berdasarkan F1-macro) akan berada di atas. **XGBoost** memiliki F1-macro tertinggi (0.960177), diikuti oleh **Random Forest**, **Decision Tree**, **LightGBM**, dan **Logistic Regression**.
+
+![Gambar16](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar16.jpg)
+
+### Pengujian Oversampling dengan K-Fold Cross Validation
+
+Ketika dataset tidak seimbang (misalnya ada lebih banyak contoh dari satu kelas dibandingkan kelas lainnya), Random Oversampling digunakan untuk menambah jumlah data dari kelas minoritas. Ini membantu model untuk belajar lebih baik pada kelas yang lebih sedikit dan mengurangi bias terhadap kelas mayoritas.
+Dengan membandingkan hasil dari model yang dilatih dengan dan tanpa oversampling, kita dapat mengetahui apakah oversampling memberi dampak positif terhadap performa model dalam hal metrik evaluasi, seperti F1-score, AUC, precision, dan recall.
+Train Errors (Kesalahan Pelatihan) dan Validation Errors (Kesalahan Validasi) dihitung untuk masing-masing fold dan dibandingkan antara model yang menggunakan oversampling dan yang tidak
+
+#### Metrik Evaluasi Tanpa Oversampling
+
+![Gambar17](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar17.jpg)
+
+#### Metrik Evaluasi Dengan Oversampling
+
+![Gambar18](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar18.jpg)
+
+Hasil yang ditampilkan adalah DataFrame yang berisi metrik evaluasi untuk setiap fold, serta rata-rata metrik untuk semua fold. DataFrame ini mencakup:
+- Train Accuracy: Akurasi model pada data pelatihan.
+- Test Accuracy: Akurasi model pada data uji.
+- Train ROC AUC: Nilai ROC AUC untuk data pelatihan.
+- Test ROC AUC: Nilai ROC AUC untuk data uji.
+- Train F1-Score: F1-Score untuk data pelatihan.
+- Test F1-Score: F1-Score untuk data uji.
+- Train Recall: Recall pada data pelatihan.
+- Test Recall: Recall pada data uji.
+- Train Precision: Precision pada data pelatihan.
+- Test Precision: Precision pada data uji.
+
+Hasilnya adalah sebagai berikut.
+- Train Accuracy: Nilai akurasi untuk data pelatihan cenderung 1.0, yang menunjukkan bahwa model cukup baik dalam mempelajari data pelatihan.
+- Test Accuracy: Nilai akurasi pada data uji berkisar antara 0.95 hingga 1.0, yang menunjukkan bahwa model juga bekerja dengan baik pada data yang tidak terlihat sebelumnya.
+- Train ROC AUC dan Test ROC AUC: Nilai AUC yang lebih tinggi menunjukkan kemampuan model dalam membedakan kelas positif dan negatif. Nilai-nilai ini mendekati 1.0, yang menunjukkan model bekerja sangat baik dalam hal ini.
+Train F1-Score dan Test F1-Score: F1-score yang lebih tinggi menunjukkan keseimbangan yang baik antara precision dan recall.
+- Train Recall dan Test Recall: Nilai recall yang tinggi menunjukkan model dapat mengenali hampir semua contoh dari kelas positif.
+- Train Precision dan Test Precision: Precision yang tinggi menunjukkan bahwa sebagian besar prediksi positif model adalah benar.
+
+### Hyperparameter Tuning
+
+RandomizedSearchCV digunakan untuk mencari kombinasi terbaik dari hyperparameter untuk model XGBoost. Pendekatan ini memungkinkan pencarian di berbagai kombinasi hyperparameter tanpa melakukan pencarian menyeluruh (seperti pada GridSearchCV), yang lebih efisien pada dataset besar.
+
+![Gambar19](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar19.jpg)
+
+Di sini, kita mendefinisikan **ruang pencarian untuk hyperparameter** yang akan dicoba selama pencarian acak (**RandomizedSearchCV**).
+- **`'n_estimators': [50, 100, 200]`**: Jumlah pohon yang akan dibangun dalam model XGBoost.
+- **`'max_depth': [None, 10, 20, 30]`**: Kedalaman maksimum pohon. Kedalaman yang lebih besar memungkinkan model untuk menangkap lebih banyak detail dalam data, tetapi berisiko overfitting.
+- **`'min_samples_split': [2, 5, 10]`**: Jumlah sampel minimum yang diperlukan untuk membagi node. Ini membantu dalam mencegah overfitting dengan mengatur seberapa sensitif pembagian pohon.
+- **`'max_features': ['sqrt', 'log2', None]`**: Mengontrol jumlah fitur yang dipertimbangkan saat membagi setiap node pohon.
+- **`'random_state': [42]`**: Untuk memastikan hasil yang dapat direproduksi selama pencarian acak.
+
+Kombinasi hyperparameter terbaik yang ditemukan setelah pencarian acak kemudian disimpan sebagai model terbaik dan model terbaik dilatih dengan data pelatihan.
+
+![Gambar20](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar20.jpg)
+
+Selanjutnya ditampilkan laporan klasifikasi yang memberikan informasi tentang precision, recall, F1-score, dan support untuk setiap kelas sebelum tuning hyperparameter, serta informasi serupa untuk model XGBoost yang telah di-tuning dengan hyperparameter terbaik yang ditemukan selama pencarian acak.
+
+![Gambar21](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar21.jpg)
+
+Model XGBoost yang telah disesuaikan menunjukkan performa luar biasa dengan **f1-score macro sebesar 0.97**, yang mencerminkan keseimbangan antara presisi dan recall di kedua kelas (churn dan tidak churn). Dengan tingkat akurasi keseluruhan 98%, model ini sangat andal dalam memprediksi pelanggan yang berpotensi churn (kelas 1) maupun yang tetap loyal (kelas 0). Namun, mempertahankan **f1-score** di tingkat ini sangat penting karena secara langsung memengaruhi kemampuan untuk menangani churn pelanggan secara akurat.
+
 
 ## Evaluation
 Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
