@@ -174,9 +174,14 @@ Berikutnya dapat dilakukan penghapusan kolom yang tidak digunakan untuk analisis
 
 ### Encoding
 
-Teknik rekayasa fitur seperti one-hot encoding dan standarisasi sangat penting dalam machine learning karena banyak algoritme tidak dapat menangani data kategorikal atau fitur yang tidak distandarisasi dengan baik (misalnya banyak algoritme seperti regresi linier dan jaringan saraf mengasumsikan bahwa fitur input bersifat numerik dan distandarisasi)
+Teknik rekayasa fitur seperti one-hot encoding dan standarisasi sangat penting dalam machine learning karena banyak algoritme tidak dapat menangani data kategorikal atau fitur yang tidak distandarisasi dengan baik (misalnya banyak algoritme seperti regresi linier dan jaringan saraf mengasumsikan bahwa fitur input bersifat numerik dan distandarisasi).
 
 ![Gambar13](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar13.jpg)
+
+`ColumnTransformer` adalah alat yang sangat berguna dari scikit-learn yang menerapkan transformasi yang berbeda pada subset kolom yang berbeda dalam data. Fungsi ini mengambil daftar operasi yang akan diterapkan pada kolom-kolom tertentu:
+- **`onehot`:** Menerapkan `OneHotEncoder` pada kolom `PreferredLoginDevice`, `Gender`, dan `MaritalStatus`, yang akan mengubah variabel kategorikal menjadi format yang cocok untuk algoritme machine learning (mengubah kategori menjadi format biner).
+- **`binary`:** Menerapkan `BinaryEncoder` pada kolom `PreferredPaymentMode` dan `PreferredOrderCat`. Binary encoding adalah alternatif dari one-hot encoding untuk menangani data kategorikal.
+- **`num`:** Menerapkan `StandardScaler` pada kolom numerik seperti `Tenure`, `WarehouseToHome`, `HourSpendOnApp`, dan lain-lain. Scaler ini menstandarisasi fitur numerik (mengubahnya agar rata-rata 0 dan variansinya menjadi 1).
 
 ## Modeling & Evaluation
 
