@@ -59,7 +59,7 @@ EDA adalah langkah kritis dalam analisis data yang memungkinkan kita untuk memah
 
 #### Distribusi Data
 Untuk melihat distribusi data dari kolom numerik dapat digunakan boxplot. Untuk mempermudah analisis, kolom dibagi menjadi kolom numerikal dan kolom kategorikal. Walaupun Churn, CityTier, dan Complain bertipe data integer, ketiga kolom ini akan masuk ke dalam klasifikasi kategorikal karena kolom tersebut mewakili kategori atau flagging.
-![Gambar01](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar%2001.png](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar01.jpg)
+![Gambar01](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar01.jpg)
 Berdasarkan boxplot di atas, dapat dilihat bahwa hampir seluruh kolom numerik, kecuali SatisfactionScore, memiliki nilai outlier. Hal ini dapat dilihat dari adanya titik-titik yang berada di luar whisker dan ini menunjukkan adanya nilai ekstrem yang perlu dilihat lebih lanjut.
 
 #### Korelasi Data
