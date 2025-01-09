@@ -2,7 +2,9 @@
 
 ## Domain Proyek
 Dalam industri e-commerce yang sangat kompetitif, tingkat churn pelanggan menjadi salah satu tantangan utama yang dapat memengaruhi profitabilitas dan keberlanjutan bisnis. Pelanggan yang churn, atau berhenti menggunakan layanan, sering kali sulit untuk diidentifikasi secara dini, sehingga perusahaan kehilangan peluang untuk mempertahankan mereka. Biaya untuk mendapatkan pelanggan baru biasanya jauh lebih tinggi dibandingkan mempertahankan pelanggan yang sudah ada, sehingga memahami penyebab dan memprediksi churn menjadi krusial ([Early Churn Prediction from Large Scale User-Product Interaction Time Series](https://arxiv.org/abs/2309.14390)).
+
 Proyek ini bertujuan untuk mengidentifikasi pola perilaku pelanggan yang berisiko meninggalkan platform e-commerce dengan memanfaatkan data pelanggan, seperti riwayat pembelian, pola interaksi, dan demografi, untuk mengidentifikasi faktor-faktor utama yang memengaruhi churn. Dengan menerapkan teknik machine learning seperti model prediksi berbasis data, hasil dari analisis ini dapat menyediakan wawasan yang dapat membantu perusahaan dalam merancang strategi retensi pelanggan yang lebih efektif, seperti personalisasi layanan, program loyalitas, atau intervensi proaktif untuk mempertahankan pelanggan yang berisiko churn.
+
 Dengan demikian, hal ini melibatkan pemahaman mendalam tentang pengelolaan data, penerapan algoritme prediksi, dan penerjemahan hasil analisis ke dalam tindakan nyata untuk mengurangi tingkat churn dan meningkatkan kepuasan pelanggan.
 
 ## Business Understanding
@@ -309,7 +311,6 @@ Selanjutnya ditampilkan laporan klasifikasi yang memberikan informasi tentang pr
 ![Gambar21](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar21.jpg)
 
 Model XGBoost yang telah disesuaikan menunjukkan performa luar biasa dengan **f1-score macro sebesar 0.97**, yang mencerminkan keseimbangan antara presisi dan recall di kedua kelas (churn dan tidak churn). Dengan tingkat akurasi keseluruhan 98%, model ini sangat andal dalam memprediksi pelanggan yang berpotensi churn (kelas 1) maupun yang tetap loyal (kelas 0). Namun, mempertahankan **f1-score** di tingkat ini sangat penting karena secara langsung memengaruhi kemampuan untuk menangani churn pelanggan secara akurat.
-
 
 ## Kesimpulan
 
