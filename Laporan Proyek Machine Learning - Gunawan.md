@@ -24,7 +24,7 @@ Churn pelanggan dapat menyebabkan kerugian pendapatan yang signifikan serta peni
 Metrik evaluasi menggunakan F1-Score, karena:
 - Keseimbangan Precision dan Recall: Sebagai harmonic mean dari precision dan recall, F1-Score cocok untuk memastikan model tidak hanya fokus pada meminimalkan false positives (precision) atau false negatives (recall).
 - Efektif untuk Data Tidak Seimbang: Dalam kasus churn, data sering kali tidak seimbang (lebih banyak pelanggan tidak churn dibanding churn). F1-Score memberikan gambaran yang lebih realistis dibandingkan akurasi.
-Relevan untuk Tujuan Bisnis: Memastikan pelanggan yang benar-benar berisiko churn terdeteksi dengan baik tanpa terlalu banyak kesalahan positif.
+- Relevan untuk Tujuan Bisnis: Memastikan pelanggan yang benar-benar berisiko churn terdeteksi dengan baik tanpa terlalu banyak kesalahan positif.
 
 ## Data Understanding
 Dataset e-commerce yang digunakan pada proyek ini berisi informasi tingkat pelanggan, termasuk demografi, riwayat transaksi, metrik perilaku, dan indikator kepuasan. Setiap baris merepresentasikan satu pelanggan, sedangkan setiap kolom menangkap fitur spesifik dari profil mereka. Terdapat sebanyak 5.630 baris dan 20 kolom ([Kaggle - Ecommerce Customer Churn Analysis and Prediction](https://www.kaggle.com/datasets/ankitverma2010/ecommerce-customer-churn-analysis-and-prediction)).
