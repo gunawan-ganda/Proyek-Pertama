@@ -90,11 +90,11 @@ Berdasarkan boxplot di atas, dapat dilihat bahwa hampir seluruh kolom numerik, k
 Fitur dengan dampak terbesar terhadap churn adalah Tenure dengan korelasi negatif yang signifikan, menunjukkan bahwa loyalitas pelanggan meningkat dengan waktu. DaySinceLastOrder dan CashbackAmount juga memiliki efek negatif moderat terhadap churn, yang berarti menjaga pelanggan aktif dengan cashback dapat membantu mengurangi churn. Fitur lain menunjukkan korelasi yang lemah atau tidak signifikan dengan churn.
 
 #### Kordinalitas Data
-
+![Gambar04](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar04.jpg)
 Berdasarkan pengecekan nilai unik pada dataset, pada beberapa kolom, ditemukan beberapa nilai dengan penamaan yang tidak konsisten. Misalnya pada kolom PrefferedLoginDevice terdapat nilai 'Mobile Phone' dan 'Phone' yang merujuk ke perangkat yang sama. Kemudian pada kolom PreferredPaymentMode terdapat 'CC' dan 'Credit Card' yang merujuk kepada penggunaan kartu kredit, serta 'COD' dan 'Cash on Delivery' yang merujuk pada satu metode pembayaran yang sama. Selain itu, pada kolom PreferedOrderCat terdapat 'Mobile' dan 'Mobile Phone' yang merujuk pada kategori yang sama.
 
 #### Identifikasi Nilai Hilang
-
+![Gambar05](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar05.jpg)
 Terdapat 7 (tujuh) kolom yang memiliki nilai hilang, yaitu Tenure, WerehouseToHome, HourSpendOnApp, OrderAmountHikeFromlastYear, CouponUsed, OrderCount, dan DaySinceLastOrder.
 
 Nilai hilang pada dataset ini dapat diklasifikasikan menjadi 3 (tiga), yaitu: 
@@ -114,7 +114,7 @@ Untuk menangani nilai hilang:
 - MNAR: Buat variabel indikator dan gunakan pengetahuan spesifik domain atau pertimbangkan strategi imputasi lanjutan seperti iterative imputer.
 
 #### Identifikasi Duplikasi Nilai
-
+![Gambar06](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar06.jpg)
 Dapat dilihat bahwa tidak terdapat data duplikat yang teridentifikasi.
 
 ## Data Preparation
