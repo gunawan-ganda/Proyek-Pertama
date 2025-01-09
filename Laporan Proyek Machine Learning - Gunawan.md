@@ -181,7 +181,57 @@ Teknik rekayasa fitur seperti one-hot encoding dan standarisasi sangat penting d
 
 ### Benchmark Model: K-Fold
 
-Akan diuji cross validation 6 jenis model (regresi logistik, K-Nearest Neighbors (KNN), pohon keputusan, random forest, XGBoost, dan LightGBM) dengan parameter default dan jumlah fold 5 untuk melihat model yang terbaik untuk dataset ini. Cross-validation adalah teknik yang sangat penting untuk menguji kinerja model secara lebih robust. Dengan membagi data ke dalam beberapa lipatan dan melatih model pada sebagian data, kemudian menguji pada bagian yang lain, kita mendapatkan gambaran yang lebih baik tentang bagaimana model akan bekerja di data yang belum pernah dilihat sebelumnya.
+Akan diuji cross validation 6 jenis model (regresi logistik, K-Nearest Neighbors (KNN), pohon keputusan, random forest, XGBoost, dan LightGBM) dengan parameter default dan jumlah fold 5 untuk melihat model yang terbaik untuk dataset ini.
+1. Logistic Regression (Regresi Logistik):
+  - Kelebihan:
+    - Cepat dan sederhana untuk digunakan.
+    - Hasilnya mudah diinterpretasikan dalam hal probabilitas kelas.
+    - Cocok untuk masalah klasifikasi biner atau multikelas.
+  - Kekurangan:
+    - Tidak efektif untuk hubungan nonlinear antara fitur dan target.
+    - Mungkin kurang efektif pada dataset yang sangat besar dengan banyak fitur.
+2. K-Nearest Neighbors (KNN):
+  - Kelebihan:
+    - Mudah dipahami dan diimplementasikan.
+    - Tidak memerlukan model pelatihan eksplisit.
+    - Sangat efektif pada data dengan batas keputusan yang sederhana.
+  - Kekurangan:
+    - Lambat saat prediksi pada dataset besar karena harus menghitung jarak ke semua data setiap kali prediksi dilakukan.
+    - Kinerja dapat menurun jika data memiliki banyak fitur (dimensionality curse).
+3. Decision Tree (Pohon Keputusan):
+  - Kelebihan:
+    - Mudah dipahami dan interpretasi model langsung.
+    - Bisa menangani data numerik dan kategorikal.
+    - Dapat menangani hubungan nonlinear.
+  - Kekurangan:
+    - Rentan terhadap overfitting, terutama jika pohon terlalu dalam.
+    - Tidak selalu memberikan hasil yang stabil, terutama jika data noisy.
+4. Random Forest:
+  - Kelebihan:
+    - Meningkatkan akurasi dengan mengurangi risiko overfitting yang ada pada decision tree tunggal.
+    - Lebih stabil terhadap fluktuasi data dan noise.
+    - Dapat menangani data yang hilang dan outlier.
+  - Kekurangan:
+    - Model yang lebih kompleks dan memerlukan lebih banyak sumber daya komputasi.
+    - Kurang interpretable dibandingkan pohon keputusan tunggal.
+5. XGBoost (Extreme Gradient Boosting):
+  - Kelebihan:
+    - Kinerja sangat baik untuk banyak masalah klasifikasi dan regresi.
+    - Mampu menangani data yang tidak terstruktur dan besar dengan efisien.
+    - Menghasilkan model yang lebih baik dengan waktu pelatihan yang lebih cepat dibandingkan dengan gradient boosting tradisional.
+  - Kekurangan:
+    - Lebih rumit untuk diatur dibandingkan dengan Random Forest atau Decision Tree.
+    - Memerlukan tuning parameter yang lebih hati-hati untuk mencapai performa optimal.
+6. LightGBM (Light Gradient Boosting Machine):
+ - Kelebihan:
+    - Sangat cepat dan efisien dalam hal memori.
+    - Dapat menangani dataset besar dengan jumlah fitur yang sangat banyak.
+    - Sering kali menghasilkan model yang lebih baik dengan lebih sedikit waktu pelatihan dibandingkan dengan XGBoost.
+  - Kekurangan:
+    - Tuning parameter bisa cukup rumit.
+    - Mungkin kurang stabil pada dataset yang lebih kecil atau sangat terstruktur dibandingkan XGBoost.
+
+Cross-validation adalah teknik yang sangat penting untuk menguji kinerja model secara lebih robust. Dengan membagi data ke dalam beberapa lipatan dan melatih model pada sebagian data, kemudian menguji pada bagian yang lain, kita mendapatkan gambaran yang lebih baik tentang bagaimana model akan bekerja di data yang belum pernah dilihat sebelumnya.
 
 ![Gambar14](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar14.jpg)
 
@@ -251,22 +301,3 @@ Selanjutnya ditampilkan laporan klasifikasi yang memberikan informasi tentang pr
 ![Gambar21](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar21.jpg)
 
 Model XGBoost yang telah disesuaikan menunjukkan performa luar biasa dengan **f1-score macro sebesar 0.97**, yang mencerminkan keseimbangan antara presisi dan recall di kedua kelas (churn dan tidak churn). Dengan tingkat akurasi keseluruhan 98%, model ini sangat andal dalam memprediksi pelanggan yang berpotensi churn (kelas 1) maupun yang tetap loyal (kelas 0). Namun, mempertahankan **f1-score** di tingkat ini sangat penting karena secara langsung memengaruhi kemampuan untuk menangani churn pelanggan secara akurat.
-
-
-## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
-
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
-
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
-
-**---Ini adalah bagian akhir laporan---**
-
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
