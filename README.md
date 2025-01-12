@@ -278,7 +278,18 @@ Berdasarkan eksperimen yang telah dilakukan pada tahapan pengembangan model, dip
 
 ### Pengujian Oversampling dengan K-Fold Cross Validation ###
 
-Oversampling adalah teknik yang digunakan dalam pengolahan data tidak seimbang (imbalanced dataset) untuk menangani situasi dimana satu kelas memiliki jauh lebih banyak sampel dibandingkan kelas lainnya. Pengujian oversampling bertujuan untuk meningkatkan kualitas model dengan mengurangi bias yang mungkin timbul akibat ketidakseimbangan kelas.
+Oversampling adalah teknik yang digunakan dalam pengolahan data tidak seimbang (imbalanced dataset) untuk menangani situasi dimana satu kelas memiliki jauh lebih banyak sampel dibandingkan kelas lainnya. Pengujian oversampling bertujuan untuk meningkatkan kualitas model dengan mengurangi bias yang mungkin timbul akibat ketidakseimbangan kelas. Ketika dataset tidak seimbang (misalnya ada lebih banyak contoh dari satu kelas dibandingkan kelas lainnya), Random Oversampling digunakan untuk menambah jumlah data dari kelas minoritas. Ini membantu model untuk belajar lebih baik pada kelas yang lebih sedikit dan mengurangi bias terhadap kelas mayoritas. Dengan membandingkan hasil dari model yang dilatih dengan dan tanpa oversampling, kita dapat mengetahui apakah oversampling memberi dampak positif terhadap performa model. 
+
+![Gambar17_1](https://github.com/user-attachments/assets/1fb472b3-ef75-4c9d-b619-211b462588db)
+
+- `KFold(n_splits=10, shuffle=True, random_state=42)`: Teknik K-Fold Cross Validation yang membagi data menjadi 10 lipatan (folds).
+- `shuffle=True`: Memastikan bahwa data diacak terlebih dahulu sebelum dibagi ke dalam lipatan.
+- `random_state=42`: Menetapkan nilai acak untuk memastikan hasil yang dapat direproduksi.
+- `ros=RandomOverSampler(random_state=42)`: RandomOverSampler digunakan untuk mengatasi ketidakseimbangan kelas dengan menambahkan sampel ke kelas minoritas (oversampling).
+- `X_ros, y_ros=ros.fit_resample(X_train, y_train)`: Menghasilkan data pelatihan baru dengan kelas minoritas yang lebih banyak untuk mengimbangi kelas mayoritas.
+- `xgb=XGBClassifier()`: Model XGBoost yang digunakan untuk pengujian dengan dan tanpa oversampling.
+
+Berdasarkan eksperimen yang telah dilakukan dengan dan tanpa oversampling, diperoleh hasil XGBoost dengan oversampling merupakan model machine learning yang berkinerja terbaik. Hal ini berdasarkan hasil dari skor F1.
 
 ### Hyperparameter Tuning
 
@@ -297,7 +308,22 @@ Kombinasi hyperparameter terbaik yang ditemukan setelah pencarian acak kemudian 
 
 ![Gambar20](https://github.com/user-attachments/assets/99dd4ace-12eb-4958-b9e5-2827f79701d6)
 
+### Pemilihan Model Terbaik
+
+Berdasarkan eksperimen yang telah dilakukan pada tahapan-tahapan sebelumnya, diperoleh model machine learning terbaik yaitu XGBoost oversampling dengan hyperparameter tuning random search. Hal ini berdasarkan hasil dari skor F1 macro dan classification report yang menunjukkan bahwa hasil dari model ini lebih baik dari hasil model XGBoost oversampling yang tidak menerapkan hyperparameter tuning, sehingga hasil dari model machine learing yang dikembangkan telah memenuhi tujuan dari solution statement yang telah ditentukan sebelumnya.
+
+### Fitur Penting
+
+Berikutnya dilakukan analisis untuk memvisualisasikan importance (pentingnya) fitur dalam sebuah model machine learning dengan menggunakan atribut `feature_importances_`. Dari hasil visualisasi, terlihat bahwa 3 fitur yang penting dari dataset yang memengaruhi churn pelanggan adalah Tenure, Complain, dan PreferedOrderCat. Hasil ini telah memenuhi tujuan dari solution statement yang telah ditentukan sebelumnya
+
+![Gambar22](https://github.com/user-attachments/assets/fb30f544-2005-40ed-8156-3431ea91ecec)
+
 ## Evaluation
+
+F1-Score dipilih sebagai metrik evaluasi utama dalam model ini.
+- Mengapa tidak hanya menggunakan precision? Precision tinggi berarti model berhasil mengidentifikasi sebagian besar pelanggan yang benar-benar berisiko churn. Namun, jika precision tinggi tetapi recall rendah, sistem otomatis akan memberikan promo kepada pelanggan yang sebenarnya tidak berisiko churn (False Positives). Hal ini berpotensi meningkatkan biaya operasional secara tidak perlu.
+- Mengapa tidak hanya menggunakan recall? Recall tinggi memastikan hanya pelanggan yang benar-benar berisiko churn yang diberi promo. Namun, jika recall tinggi tetapi precision rendah, sistem akan gagal mendeteksi sebagian besar pelanggan yang berisiko churn. Akibatnya, bisnis kehilangan kesempatan mempertahankan pelanggan penting.
+- Mengapa F1-Score lebih relevan? F1-Score merupakan harmonic mean dari precision dan recall, memberikan keseimbangan antara kedua metrik tersebut. Dalam sistem seperti ini, keseimbangan antara menghindari kerugian akibat False Positives dan risiko kehilangan pelanggan akibat False Negatives sangat penting. F1-Score membantu memastikan bahwa model cukup sensitif (precision) untuk mendeteksi pelanggan berisiko, namun tetap selektif (recall) agar promo diberikan secara efisien.
 
 ### Benchmark Model: K-Fold
 
