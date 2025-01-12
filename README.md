@@ -98,7 +98,7 @@ Berdasarkan boxplot di atas, dapat dilihat bahwa hampir seluruh kolom numerik, k
 Fitur dengan dampak terbesar terhadap churn adalah Tenure dengan korelasi negatif yang signifikan, menunjukkan bahwa loyalitas pelanggan meningkat dengan waktu. DaySinceLastOrder dan CashbackAmount juga memiliki efek negatif moderat terhadap churn, yang berarti menjaga pelanggan aktif dengan cashback dapat membantu mengurangi churn. Fitur lain menunjukkan korelasi yang lemah atau tidak signifikan dengan churn.
 Variabel Tenure memiliki korelasi negatif yang cukup signifikan (-0.35) dengan churn, menunjukkan bahwa pelanggan dengan masa keanggotaan lebih lama cenderung lebih kecil kemungkinannya untuk churn. Selain itu, DaySinceLastOrder juga memiliki korelasi negatif moderat (-0.16), yang mengindikasikan bahwa pelanggan yang melakukan pesanan baru-baru ini cenderung tidak churn. Sebaliknya, fitur seperti SatisfactionScore, NumberOfDeviceRegistered, dan CashbackAmount memiliki korelasi positif kecil dengan churn (0.11), namun dampaknya relatif lebih lemah.
 
-#### Kordinalitas Data
+#### Kardinalitas Data
 
 ![Gambar04](https://github.com/user-attachments/assets/d8fd6315-debe-494a-a955-0e62a39904f8)
 
@@ -320,6 +320,8 @@ Berikutnya dilakukan analisis untuk memvisualisasikan importance (pentingnya) fi
 
 ## Evaluation
 
+F1 Score dihitung dengan rumus: [ F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} ]
+
 F1-Score dipilih sebagai metrik evaluasi utama dalam model ini.
 - Mengapa tidak hanya menggunakan precision? Precision tinggi berarti model berhasil mengidentifikasi sebagian besar pelanggan yang benar-benar berisiko churn. Namun, jika precision tinggi tetapi recall rendah, sistem otomatis akan memberikan promo kepada pelanggan yang sebenarnya tidak berisiko churn (False Positives). Hal ini berpotensi meningkatkan biaya operasional secara tidak perlu.
 - Mengapa tidak hanya menggunakan recall? Recall tinggi memastikan hanya pelanggan yang benar-benar berisiko churn yang diberi promo. Namun, jika recall tinggi tetapi precision rendah, sistem akan gagal mendeteksi sebagian besar pelanggan yang berisiko churn. Akibatnya, bisnis kehilangan kesempatan mempertahankan pelanggan penting.
@@ -327,28 +329,26 @@ F1-Score dipilih sebagai metrik evaluasi utama dalam model ini.
 
 ### Benchmark Model: K-Fold
 
-![Gambar14](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar14.jpg)
+![Gambar14](https://github.com/user-attachments/assets/ef568782-9557-4adf-acd3-b271f6ec42d4)
 
-Setelah cross-validation, hasil evaluasi untuk masing-masing model (`Logistic Regression`, `KNN`, `Decision Tree`, `Random Forest`, `XGBoost`, dan `LightGBM`) ditampilkan. Hasilnya adalah DataFrame yang menampilkan F1-macro score untuk setiap model, yang digunakan untuk menentukan model terbaik berdasarkan kinerja mereka.
+Setiap model dievaluasi menggunakan F1-macro score yang dihitung dari hasil cross-validation. Setelah cross-validation, hasil evaluasi untuk masing-masing model (`Logistic Regression`, `KNN`, `Decision Tree`, `Random Forest`, `XGBoost`, dan `LightGBM`) ditampilkan. Hasilnya adalah DataFrame yang menampilkan F1-macro score untuk setiap model, yang digunakan untuk menentukan model terbaik berdasarkan kinerja mereka. Dari hasil evaluasi didapatkan model dengan kinerja terbaik adalah XGBoost, dengan nilai F1-macro score adalah 0.942754. 
 
 ### Benchmark Model: Test Data
 
-Hasilnya adalah tabel yang menunjukkan evaluasi dari berbagai model klasifikasi berdasarkan metrik, seperti **precision**, **recall**, **f1-score**, **accuracy**, dan **weighted avg** untuk setiap model yang diuji. Tabel yang ditampilkan mengurutkan model berdasarkan skor **F1-macro**, sehingga model dengan performa terbaik (berdasarkan F1-macro) akan berada di atas. **XGBoost** memiliki F1-macro tertinggi (0.960177), diikuti oleh **Random Forest**, **Decision Tree**, **LightGBM**, dan **Logistic Regression**.
+![Gambar16](https://github.com/user-attachments/assets/86330743-0940-45d7-8204-ab1304889beb)
 
-![Gambar16](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar16.jpg)
+Hasil evaluasi dari benchmark model dengan data tes adalah tabel yang menunjukkan evaluasi dari berbagai model klasifikasi yang diuji. Tabel yang ditampilkan mengurutkan model berdasarkan skor **F1-macro**, sehingga model dengan performa terbaik (berdasarkan F1-macro) akan berada di atas. **XGBoost** memiliki F1-macro tertinggi (0.960177), diikuti oleh **Random Forest**, **Decision Tree**, **LightGBM**, dan **Logistic Regression**. F1-macro adalah rata-rata dari F1-score untuk semua kelas tanpa mempertimbangkan ketidakseimbangan jumlah kelas. Ini berguna ketika kita memiliki data dengan kelas yang tidak seimbang dan ingin memberikan bobot yang sama untuk setiap kelas. F1_macro menghitung F1 score untuk setiap kelas, kemudian menghitung rata-rata dari semua kelas tersebut.
 
 ### Pengujian Oversampling dengan K-Fold Cross Validation
-Ketika dataset tidak seimbang (misalnya ada lebih banyak contoh dari satu kelas dibandingkan kelas lainnya), Random Oversampling digunakan untuk menambah jumlah data dari kelas minoritas. Ini membantu model untuk belajar lebih baik pada kelas yang lebih sedikit dan mengurangi bias terhadap kelas mayoritas.
-Dengan membandingkan hasil dari model yang dilatih dengan dan tanpa oversampling, kita dapat mengetahui apakah oversampling memberi dampak positif terhadap performa model dalam hal metrik evaluasi, seperti F1-score, AUC, precision, dan recall.
-Train Errors (Kesalahan Pelatihan) dan Validation Errors (Kesalahan Validasi) dihitung untuk masing-masing fold dan dibandingkan antara model yang menggunakan oversampling dan yang tidak
+Perbandingan model dengan dan tanpa oversampling memungkinkan untuk membandingkan hasil model yang dilatih dengan oversampling (penanganan ketidakseimbangan kelas) dan tanpa oversampling, untuk melihat apakah oversampling membantu meningkatkan kinerja model, terutama dalam menangani data yang tidak seimbang. Train Errors (Kesalahan Pelatihan) dan Validation Errors (Kesalahan Validasi) dihitung untuk masing-masing fold dan dibandingkan antara model XGBoost yang menggunakan oversampling dan yang tidak. Proses ini memberikan dua set hasil evaluasi: satu untuk pelatihan dengan data yang telah di-oversampling dan satu lagi untuk pelatihan tanpa oversampling, yang akan memberikan informasi apakah penanganan ketidakseimbangan kelas membawa perbaikan dalam kinerja model.
 
 #### Metrik Evaluasi Tanpa Oversampling
 
-![Gambar17](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar17.jpg)
+![Gambar17](https://github.com/user-attachments/assets/4f76b500-d0b0-4e64-b733-78c52dbb62b1)
 
 #### Metrik Evaluasi Dengan Oversampling
 
-![Gambar18](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar18.jpg)
+![Gambar18](https://github.com/user-attachments/assets/8f8f28ed-423e-4482-acec-6e24ef8eb622)
 
 Hasil yang ditampilkan adalah DataFrame yang berisi metrik evaluasi untuk setiap fold, serta rata-rata metrik untuk semua fold. DataFrame ini mencakup:
 - Train Accuracy: Akurasi model pada data pelatihan.
@@ -362,11 +362,11 @@ Hasil yang ditampilkan adalah DataFrame yang berisi metrik evaluasi untuk setiap
 - Train Precision: Precision pada data pelatihan.
 - Test Precision: Precision pada data uji.
 
-Hasilnya adalah sebagai berikut.
+Hasil evaluasi menunjukkan model XGBoost dengan penanganan oversampling memberikan kinerja lebih baik, yaitu:
 - Train Accuracy: Nilai akurasi untuk data pelatihan cenderung 1.0, yang menunjukkan bahwa model cukup baik dalam mempelajari data pelatihan.
-- Test Accuracy: Nilai akurasi pada data uji berkisar antara 0.95 hingga 1.0, yang menunjukkan bahwa model juga bekerja dengan baik pada data yang tidak terlihat sebelumnya.
+- Test Accuracy: Nilai akurasi pada data uji berkisar antara 0.96 hingga 1.0, yang menunjukkan bahwa model juga bekerja dengan baik pada data yang tidak terlihat sebelumnya.
 - Train ROC AUC dan Test ROC AUC: Nilai AUC yang lebih tinggi menunjukkan kemampuan model dalam membedakan kelas positif dan negatif. Nilai-nilai ini mendekati 1.0, yang menunjukkan model bekerja sangat baik dalam hal ini.
-Train F1-Score dan Test F1-Score: F1-score yang lebih tinggi menunjukkan keseimbangan yang baik antara precision dan recall.
+- Train F1-Score dan Test F1-Score: F1-score yang lebih tinggi menunjukkan keseimbangan yang baik antara precision dan recall.
 - Train Recall dan Test Recall: Nilai recall yang tinggi menunjukkan model dapat mengenali hampir semua contoh dari kelas positif.
 - Train Precision dan Test Precision: Precision yang tinggi menunjukkan bahwa sebagian besar prediksi positif model adalah benar.
 
@@ -374,12 +374,12 @@ Train F1-Score dan Test F1-Score: F1-score yang lebih tinggi menunjukkan keseimb
 
 Laporan klasifikasi yang ditampilkan memberikan informasi tentang precision, recall, F1-score, dan support untuk setiap kelas sebelum tuning hyperparameter, serta informasi serupa untuk model XGBoost yang telah di-tuning dengan hyperparameter terbaik yang ditemukan selama pencarian acak.
 
-![Gambar21](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar21.jpg)
+![Gambar21](https://github.com/user-attachments/assets/49f82318-53f7-4fb0-88e2-ba32acd8cb0e)
 
-Model XGBoost yang telah disesuaikan menunjukkan performa luar biasa dengan **f1-score macro sebesar 0.97**, yang mencerminkan keseimbangan antara presisi dan recall di kedua kelas (churn dan tidak churn). Dengan tingkat akurasi keseluruhan 98%, model ini sangat andal dalam memprediksi pelanggan yang berpotensi churn (kelas 1) maupun yang tetap loyal (kelas 0). Namun, mempertahankan **f1-score** di tingkat ini sangat penting karena secara langsung memengaruhi kemampuan untuk menangani churn pelanggan secara akurat.
+Berdasarkan tahapan evaluasi pada proyek machine learning ini, model XGBoost dengan oversampling dan hyperparameter tuning random search menunjukkan performa luar biasa dengan **f1-score macro sebesar 0.97**, yang mencerminkan keseimbangan antara presisi dan recall di kedua kelas (churn dan tidak churn). Dengan tingkat akurasi keseluruhan 98%, model ini sangat andal dalam memprediksi pelanggan yang berpotensi churn (kelas 1) maupun yang tetap loyal (kelas 0). Namun, mempertahankan **f1-score** di tingkat ini sangat penting karena secara langsung memengaruhi kemampuan untuk menangani churn pelanggan secara akurat. Model machine learning yang dikembangkan dengan metode hyperparameter ini dinilai mampu menjawab problem statement dan mencapai goal dari proyek yang sudah ditentukan sebelumnya, sehingga diharapkan dengan adanya model machine learning ini dapat membantu memprediksi kemungkinan pelanggan akan churn.
 
 ## Kesimpulan
 
 1. Pelanggan yang berisiko churn seringkali adalah mereka yang merasa kurang terlibat secara emosional maupun fungsional dengan layanan e-commerce. Mereka cenderung mencari pengalaman yang lebih baik, harga yang lebih kompetitif, atau layanan yang lebih sesuai dengan kebutuhan spesifik mereka. Mereka selalu menjelajahi opsi lain karena merasa layanan saat ini tidak cukup memuaskan, baik dari segi kenyamanan, kecepatan, atau insentif yang mereka harapkan. Mereka cenderung memiliki ekspektasi tinggi, tetapi dengan toleransi rendah terhadap ketidaksesuaian, menjadikan mereka kelompok yang memerlukan perhatian khusus dan pendekatan personal agar tetap setia.
-2. Model XGBoost yang telah disesuaikan menunjukkan performa luar biasa dengan **f1-score macro sebesar 0.97**, yang mencerminkan keseimbangan antara presisi dan recall di kedua kelas (churn dan tidak churn). Dengan tingkat akurasi keseluruhan 98%, model ini sangat andal dalam memprediksi pelanggan yang berpotensi churn (kelas 1) maupun yang tetap loyal (kelas 0). Namun, mempertahankan **f1-score** di tingkat ini sangat penting karena secara langsung memengaruhi kemampuan untuk menangani churn pelanggan secara akurat.
-3. Penerapan sistem Machine Learning berbasis XGBoost telah memberikan peningkatan signifikan dalam efisiensi prediksi risiko churn, dengan F1-Score sebesar 0.94 pada yang berisiko churn, mencerminkan keseimbangan optimal antara precision (0.94) dan recall (0.94).
+2. Model XGBoost dengan oversampling dan hyperparameter tuning random search menunjukkan performa luar biasa dengan **f1-score macro sebesar 0.97**, yang mencerminkan keseimbangan antara presisi dan recall di kedua kelas (churn dan tidak churn). Dengan tingkat akurasi keseluruhan 98%, model ini sangat andal dalam memprediksi pelanggan yang berpotensi churn (kelas 1) maupun yang tetap loyal (kelas 0). Namun, mempertahankan **f1-score** di tingkat ini sangat penting karena secara langsung memengaruhi kemampuan untuk menangani churn pelanggan secara akurat.
+3. Penerapan sistem machine learning berbasis XGBoost telah memberikan peningkatan signifikan dalam efisiensi prediksi risiko churn, dengan F1-Score sebesar 0.94 pada yang berisiko churn, mencerminkan keseimbangan optimal antara precision (0.94) dan recall (0.94).
