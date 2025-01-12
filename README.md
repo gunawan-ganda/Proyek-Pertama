@@ -320,10 +320,8 @@ Berikutnya dilakukan analisis untuk memvisualisasikan importance (pentingnya) fi
 
 ## Evaluation
 
-F1 Score dihitung dengan rumus:
-$F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$
-
-[ F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} ]
+F1-Score dihitung dengan rumus:
+$F1-Score = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$
 
 F1-Score dipilih sebagai metrik evaluasi utama dalam model ini.
 - Mengapa tidak hanya menggunakan precision? Precision tinggi berarti model berhasil mengidentifikasi sebagian besar pelanggan yang benar-benar berisiko churn. Namun, jika precision tinggi tetapi recall rendah, sistem otomatis akan memberikan promo kepada pelanggan yang sebenarnya tidak berisiko churn (False Positives). Hal ini berpotensi meningkatkan biaya operasional secara tidak perlu.
