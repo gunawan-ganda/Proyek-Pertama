@@ -62,12 +62,11 @@ EDA adalah langkah kritis dalam analisis data yang memungkinkan kita untuk memah
 #### Distribusi Data
 Untuk melihat distribusi data dari kolom numerik dapat digunakan boxplot. Untuk mempermudah analisis, kolom dibagi menjadi kolom numerikal dan kolom kategorikal. Walaupun Churn, CityTier, dan Complain bertipe data integer, ketiga kolom ini akan masuk ke dalam klasifikasi kategorikal karena kolom tersebut mewakili kategori atau flagging.
 
-![Gambar01](https://github.com/user-attachments/assets/0b75a616-1e20-41db-a32f-8f357c6f7e64)
-
+![Gambar01](https://github.com/user-attachments/assets/edc2dd32-0db1-4b20-99ca-fced2b4a40b4)
 
 Berdasarkan boxplot di atas, dapat dilihat bahwa hampir seluruh kolom numerik, kecuali SatisfactionScore, memiliki nilai outlier. Hal ini dapat dilihat dari adanya titik-titik yang berada di luar whisker dan ini menunjukkan adanya nilai ekstrem yang perlu dilihat lebih lanjut.
 
-![Gambar02](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar02.jpg)
+![Gambar02](https://github.com/user-attachments/assets/85e49849-3d86-4815-a22b-b2bfc95ce1f9)
 
 1. **Distribusi dari Tenure:**
   - Distribusi cenderung menurun. Sebagian besar pelanggan memiliki tenure yang pendek (0-10 bulan), sedangkan pelanggan dengan tenure lebih lama menjadi semakin sedikit.
@@ -94,20 +93,20 @@ Berdasarkan boxplot di atas, dapat dilihat bahwa hampir seluruh kolom numerik, k
 
 #### Korelasi Data
 
-![Gambar03](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar03.jpg)
+![Gambar03](https://github.com/user-attachments/assets/869fc714-8f61-4367-bcd9-af364bb8cd08)
 
 Fitur dengan dampak terbesar terhadap churn adalah Tenure dengan korelasi negatif yang signifikan, menunjukkan bahwa loyalitas pelanggan meningkat dengan waktu. DaySinceLastOrder dan CashbackAmount juga memiliki efek negatif moderat terhadap churn, yang berarti menjaga pelanggan aktif dengan cashback dapat membantu mengurangi churn. Fitur lain menunjukkan korelasi yang lemah atau tidak signifikan dengan churn.
 Variabel Tenure memiliki korelasi negatif yang cukup signifikan (-0.35) dengan churn, menunjukkan bahwa pelanggan dengan masa keanggotaan lebih lama cenderung lebih kecil kemungkinannya untuk churn. Selain itu, DaySinceLastOrder juga memiliki korelasi negatif moderat (-0.16), yang mengindikasikan bahwa pelanggan yang melakukan pesanan baru-baru ini cenderung tidak churn. Sebaliknya, fitur seperti SatisfactionScore, NumberOfDeviceRegistered, dan CashbackAmount memiliki korelasi positif kecil dengan churn (0.11), namun dampaknya relatif lebih lemah.
 
 #### Kordinalitas Data
 
-![Gambar04](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar04.jpg)
+![Gambar04](https://github.com/user-attachments/assets/d8fd6315-debe-494a-a955-0e62a39904f8)
 
 Berdasarkan pengecekan nilai unik pada dataset, pada beberapa kolom, ditemukan beberapa nilai dengan penamaan yang tidak konsisten. Misalnya pada kolom PrefferedLoginDevice terdapat nilai 'Mobile Phone' dan 'Phone' yang merujuk ke perangkat yang sama. Kemudian pada kolom PreferredPaymentMode terdapat 'CC' dan 'Credit Card' yang merujuk kepada penggunaan kartu kredit, serta 'COD' dan 'Cash on Delivery' yang merujuk pada satu metode pembayaran yang sama. Selain itu, pada kolom PreferedOrderCat terdapat 'Mobile' dan 'Mobile Phone' yang merujuk pada kategori yang sama.
 
 #### Identifikasi Nilai Hilang
 
-![Gambar05](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar05.jpg)
+![Gambar05](https://github.com/user-attachments/assets/cec1b0e5-576c-485e-8494-5be776cf570d)
 
 Terdapat 7 (tujuh) kolom yang memiliki nilai hilang, yaitu Tenure, WerehouseToHome, HourSpendOnApp, OrderAmountHikeFromlastYear, CouponUsed, OrderCount, dan DaySinceLastOrder.
 
@@ -129,7 +128,7 @@ Untuk menangani nilai hilang:
 
 #### Identifikasi Duplikasi Nilai
 
-![Gambar06](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar06.jpg)
+![Gambar06](https://github.com/user-attachments/assets/d0c65ba0-86ee-456f-8686-16cacc0aac4e)
 
 Dapat dilihat bahwa tidak terdapat data duplikat yang teridentifikasi.
 
@@ -139,13 +138,13 @@ Dapat dilihat bahwa tidak terdapat data duplikat yang teridentifikasi.
 
 Pada beberapa kolom ditemukan beberapa nilai yang tidak konsisten. Misalnya, pada kolom PrefferedLoginDevice terdapat nilai 'Mobile Phone' dan 'Phone' yang merujuk ke perangkat yang sama. Oleh karena itu, dilakukan penggantian nilai untuk menangani hal ini. Selain kolom PrefferedLoginDevice, pada kolom PreferredPaymentMode dan PreferedOrderCat juga ditemukan hal yang sama.
 
-![Gambar07](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar07.jpg)
+![Gambar07](https://github.com/user-attachments/assets/4b5109a9-1ba5-4b53-badf-599b297e578f)
 
 ### Nilai Hilang
 
 Berdasarkan identifikasi missing value sebelumnya, penanganan missing value untuk kolom Tenure dan OrderAmountHikeFromLastYear akan ditangani dengan menggunakan KNNImputer. Sedangkan pada kolom WareHouseToHome dan HourSpendOnApp akan menggunakan nilai median dari masing-masing kolom.
 
-![Gambar08](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar08.jpg)
+![Gambar08](https://github.com/user-attachments/assets/1fccf778-b2ad-414d-a396-53cee41bd5c9)
 
 Penanganan untuk MNAR: 
 1. CouponUsed  
@@ -155,7 +154,7 @@ Penanganan untuk MNAR:
   - Pada OrderCount, nilai hilang dapat diasumsikan sebagai tidak adanya pesanan pada periode tertentu. Pendekatan ini dapat diatasi dengan mengisi nilai hilang dengan angka 0 atau membuat indikator khusus untuk menunjukkan adanya periode nonpesanan.
   - Banyak e-commerce mencatat periode tanpa aktivitas pesanan, sehingga nilai 0 atau variabel indikator dapat memberikan wawasan lebih lanjut.
 
-![Gambar09](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar09.jpg)
+![Gambar09](https://github.com/user-attachments/assets/e4b18be2-c61b-4525-9490-fda8c96b0e11)
 
 3. DaySinceLastOrder  
   - Jika nilai hilang di kolom DaySinceLastOrder menggambarkan ketidakaktifan atau ketiadaan pesanan, maka mengisi nilai hilang dengan perkiraan tertentu bisa menyesatkan. Menambahkan variabel indikator (flag) untuk menunjukkan pelanggan yang memiliki nilai hilang di kolom ini dapat memberikan insight tambahan. Ini sangat berguna karena memungkinkan analisis terpisah antara pelanggan yang aktif dan tidak aktif.
@@ -163,25 +162,25 @@ Penanganan untuk MNAR:
   - Jika pelanggan tertentu tidak pernah memesan, maka isi nilai hilangnya dengan median dan berikan indikator 1 pada kolom NoLastOrderInfo. Dengan demikian, kita dapat mensegmentasi pelanggan berdasarkan aktivitas mereka.
   - Dengan pendekatan ini, kita menggunakan konteks operasional dari e-commerce untuk memastikan bahwa pengisian nilai hilang tetap memberikan informasi yang relevan dan tidak mengaburkan pola dalam data.
 
-![Gambar10](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar10.jpg)
+![Gambar10](https://github.com/user-attachments/assets/92d74f11-cb0a-49d2-8112-cfd165c4029f)
 
 ### Outlier
 
 Berdasarkan hasil identifikasi sebelumnya, data yang termasuk ke dalam outlier dapat dikatakan cukup banyak sehingga penghapusan memiliki potentsi untuk memengaruhi hasil analisis. Pendekatan penanganan outlier yang dilakukan adalah mengganti nilai outlier dengan nilai ambang batas yang dihitung berdasarkan upper range dan lower range dari masing-masing kolom. Hal ini dilakukan untuk mengurangi pengaruh nilai ekstrim tersebut terhadap model atau analisis tanpa menghapus data.
 
-![Gambar11](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar11.jpg)
+![Gambar11](https://github.com/user-attachments/assets/b33a65f8-094b-4b7d-a860-1c08567e68e1)
 
 ### Menghapus Data yang Tidak Dibutuhkan
 
 Berikutnya dapat dilakukan penghapusan kolom yang tidak digunakan untuk analisis, yaitu Customer ID. Kolom CustomerID dapat dihapus karena berisi ID unik pelanggan, dimana ID ini tidak memberikan informasi langsung tentang perilaku atau faktor churn.
 
-![Gambar12](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar12.jpg)
+![Gambar12](https://github.com/user-attachments/assets/4b3c93b9-7177-4bae-a142-36b718f24565)
 
 ### Encoding
 
 Teknik rekayasa fitur seperti one-hot encoding dan standarisasi sangat penting dalam machine learning karena banyak algoritme tidak dapat menangani data kategorikal atau fitur yang tidak distandarisasi dengan baik (misalnya banyak algoritme seperti regresi linier dan jaringan saraf mengasumsikan bahwa fitur input bersifat numerik dan distandarisasi).
 
-![Gambar13](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar13.jpg)
+![Gambar13](https://github.com/user-attachments/assets/65e392e7-6702-42e1-b509-8b7d5163cd71)
 
 `ColumnTransformer` adalah alat yang sangat berguna dari scikit-learn yang menerapkan transformasi yang berbeda pada subset kolom yang berbeda dalam data. Fungsi ini mengambil daftar operasi yang akan diterapkan pada kolom-kolom tertentu:
 - **`onehot`:** Menerapkan `OneHotEncoder` pada kolom `PreferredLoginDevice`, `Gender`, dan `MaritalStatus`, yang akan mengubah variabel kategorikal menjadi format yang cocok untuk algoritme machine learning (mengubah kategori menjadi format biner).
