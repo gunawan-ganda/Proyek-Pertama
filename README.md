@@ -34,7 +34,7 @@ Dataset e-commerce yang digunakan pada proyek ini berisi informasi tingkat pelan
 - Beberapa fitur memiliki nilai hilang (contoh: Tenure, HourSpendOnApp) yang memerlukan imputasi.
 - Data ini cocok untuk teknik pembelajaran terawasi (supervised learning), mengingat adanya variabel target yang jelas (Churn).
 
-### Variabel-variabel pada dataset e-commerce tersebut sebagai berikut:
+### Variabel-variabel pada dataset e-commerce tersebut sebagai berikut.
 - CustomerID (Integer): ID pelanggan yang unik
 - Churn (Integer): Indikator churn
 - Tenure (Float): Lama pelanggan di organisasi
@@ -274,7 +274,7 @@ Cross-validation adalah teknik yang sangat penting untuk menguji kinerja model s
 
 ### Pemilihan Model Terbaik dari Benchmark Model
 
-Berdasarkan eksperimen yang telah dilakukan pada tahapan pengembangan model, diperoleh model machine learning yang berkinerja terbaik, yaitu XGBoost. Hal ini berdasarkan hasil dari skor F1-macro.
+Berdasarkan eksperimen yang telah dilakukan pada tahapan benchmark model, diperoleh model machine learning yang berkinerja terbaik, yaitu XGBoost. Hal ini berdasarkan hasil dari skor F1-macro.
 
 ### Pengujian Oversampling dengan K-Fold Cross Validation ###
 
