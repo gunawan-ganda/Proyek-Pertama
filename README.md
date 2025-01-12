@@ -189,9 +189,13 @@ Teknik rekayasa fitur seperti one-hot encoding dan standarisasi sangat penting d
 
 ### Pemecahan Data
 
+![Gambar13_1](https://github.com/user-attachments/assets/adcc6c39-2237-4084-b3b7-b27ab4393808)
+
 Variabel `x` berisi semua kolom kecuali kolom target Churn, sementara variabel `y` berisi kolom target Churn. Ini adalah cara yang umum dalam mempersiapkan data untuk melatih model machine learning (dimana `x` adalah fitur dan `y` adalah target).
 
 ### Pembagian Data untuk Latihan dan Pengujian
+
+![Gambar13_2](https://github.com/user-attachments/assets/14c2df45-3b24-4d02-940d-ae00a0fb72c6)
 
 Fungsi `train_test_split` digunakan untuk membagi data menjadi set pelatihan dan pengujian. `x_train` dan `x_test` adalah fitur untuk pelatihan dan pengujian, sedangkan `y_train` dan `y_test` adalah target untuk pelatihan dan pengujian. Argumen `stratify=y` memastikan bahwa pembagian data mempertahankan distribusi variabel target (Churn) di kedua set pelatihan dan pengujian. `test_size=0.2` berarti 20% dari data digunakan untuk pengujian.
 
