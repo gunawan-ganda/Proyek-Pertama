@@ -57,7 +57,7 @@ Dataset e-commerce yang digunakan pada proyek ini berisi informasi tingkat pelan
 - CashbackAmount (Float): Rata-rata cashback yang diterima dalam bulan terakhir
 
 ### Exploratory Data Analysis (EDA)
-EDA adalah langkah kritis dalam analisis data yang memungkinkan kita untuk memahami informasi yang terkandung dalam dataset sebelum memulai proses analisis yang lebih mendalam. EDA membantu mengungkap pola, anomali, dan tren yang mungkin tersembunyi dalam data, sehingga memungkinkan pengambilan keputusan yang lebih baik. Dengan menjalankan EDA, kita dapat mengidentifikasi variabel penting, merumuskan pertanyaan penelitian yang lebih tepat, dan membuat asumsi awal yang relevan untuk perancangan model analisis data yang lebih kompleks.
+EDA adalah langkah kritis dalam analisis data yang memungkinkan untuk memahami informasi yang terkandung dalam dataset sebelum memulai proses analisis yang lebih mendalam. EDA membantu mengungkap pola, anomali, dan tren yang mungkin tersembunyi dalam data, sehingga memungkinkan pengambilan keputusan yang lebih baik. Dengan menjalankan EDA, variabel penting dapat diidentifikasi, merumuskan pertanyaan penelitian yang lebih tepat, dan membuat asumsi awal yang relevan untuk perancangan model analisis data yang lebih kompleks.
 
 #### Distribusi Data
 Untuk melihat distribusi data dari kolom numerik dapat digunakan boxplot. Untuk mempermudah analisis, kolom dibagi menjadi kolom numerikal dan kolom kategorikal. Walaupun Churn, CityTier, dan Complain bertipe data integer, ketiga kolom ini akan masuk ke dalam klasifikasi kategorikal karena kolom tersebut mewakili kategori atau flagging.
@@ -159,8 +159,8 @@ Penanganan untuk MNAR:
 3. DaySinceLastOrder  
   - Jika nilai hilang di kolom DaySinceLastOrder menggambarkan ketidakaktifan atau ketiadaan pesanan, maka mengisi nilai hilang dengan perkiraan tertentu bisa menyesatkan. Menambahkan variabel indikator (flag) untuk menunjukkan pelanggan yang memiliki nilai hilang di kolom ini dapat memberikan insight tambahan. Ini sangat berguna karena memungkinkan analisis terpisah antara pelanggan yang aktif dan tidak aktif.
   - Tambahkan kolom baru, misalnya NoLastOrderInfo, yang berisi nilai 1 jika DaySinceLastOrder hilang dan 0 jika tidak. Setelah menandai, nilai hilang di DaySinceLastOrder bisa diisi dengan nilai median atau mean.
-  - Jika pelanggan tertentu tidak pernah memesan, maka isi nilai hilangnya dengan median dan berikan indikator 1 pada kolom NoLastOrderInfo. Dengan demikian, kita dapat mensegmentasi pelanggan berdasarkan aktivitas mereka.
-  - Dengan pendekatan ini, kita menggunakan konteks operasional dari e-commerce untuk memastikan bahwa pengisian nilai hilang tetap memberikan informasi yang relevan dan tidak mengaburkan pola dalam data.
+  - Jika pelanggan tertentu tidak pernah memesan, maka isi nilai hilangnya dengan median dan berikan indikator 1 pada kolom NoLastOrderInfo. Dengan demikian, dapat disegmentasi pelanggan berdasarkan aktivitasnya.
+  - Dengan pendekatan ini, dapat digunakan konteks operasional dari e-commerce untuk memastikan bahwa pengisian nilai hilang tetap memberikan informasi yang relevan dan tidak mengaburkan pola dalam data.
 
 ![Gambar10](https://github.com/user-attachments/assets/92d74f11-cb0a-49d2-8112-cfd165c4029f)
 
@@ -278,7 +278,7 @@ Berdasarkan eksperimen yang telah dilakukan pada tahapan benchmark model, dipero
 
 ### Pengujian Oversampling dengan K-Fold Cross Validation ###
 
-Oversampling adalah teknik yang digunakan dalam pengolahan data tidak seimbang (imbalanced dataset) untuk menangani situasi dimana satu kelas memiliki jauh lebih banyak sampel dibandingkan kelas lainnya. Pengujian oversampling bertujuan untuk meningkatkan kualitas model dengan mengurangi bias yang mungkin timbul akibat ketidakseimbangan kelas. Ketika dataset tidak seimbang (misalnya ada lebih banyak contoh dari satu kelas dibandingkan kelas lainnya), Random Oversampling digunakan untuk menambah jumlah data dari kelas minoritas. Ini membantu model untuk belajar lebih baik pada kelas yang lebih sedikit dan mengurangi bias terhadap kelas mayoritas. Dengan membandingkan hasil dari model yang dilatih dengan dan tanpa oversampling, kita dapat mengetahui apakah oversampling memberi dampak positif terhadap performa model. 
+Oversampling adalah teknik yang digunakan dalam pengolahan data tidak seimbang (imbalanced dataset) untuk menangani situasi dimana satu kelas memiliki jauh lebih banyak sampel dibandingkan kelas lainnya. Pengujian oversampling bertujuan untuk meningkatkan kualitas model dengan mengurangi bias yang mungkin timbul akibat ketidakseimbangan kelas. Ketika dataset tidak seimbang (misalnya ada lebih banyak contoh dari satu kelas dibandingkan kelas lainnya), Random Oversampling digunakan untuk menambah jumlah data dari kelas minoritas. Ini membantu model untuk belajar lebih baik pada kelas yang lebih sedikit dan mengurangi bias terhadap kelas mayoritas. Dengan membandingkan hasil dari model yang dilatih dengan dan tanpa oversampling, dapat diketahui apakah oversampling memberi dampak positif terhadap performa model. 
 
 ![Gambar17_1](https://github.com/user-attachments/assets/1fb472b3-ef75-4c9d-b619-211b462588db)
 
