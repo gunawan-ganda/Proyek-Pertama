@@ -201,9 +201,9 @@ Fungsi `train_test_split` digunakan untuk membagi data menjadi set pelatihan dan
 
 ## Modeling
 
-### Benchmark Model: K-Fold
+![Gambar14_1](https://github.com/user-attachments/assets/c2cf9ea6-630b-4193-9420-daaed20438ba)
 
-Akan diuji cross validation 6 jenis model (regresi logistik, K-Nearest Neighbors (KNN), pohon keputusan, random forest, XGBoost, dan LightGBM) dengan **parameter default** dan **jumlah fold 5** untuk melihat model yang terbaik untuk dataset ini.
+Pada proyek ini akan diuji 6 jenis model, yaitu regresi logistik, K-Nearest Neighbors (KNN), pohon keputusan, random forest, XGBoost, dan LightGBM. Semua model ini adalah model klasifikasi yang populer dan digunakan untuk membandingkan kinerja berbagai algoritme dalam hal akurasi dan performa lainnya. Dengan membandingkan beberapa model, dapat ditentukan algoritme mana yang paling cocok untuk dataset yang digunakan berdasarkan performa yang diukur sehingga membantu dalam memilih model yang paling optimal untuk klasifikasi yang lebih baik. Parameter yang digunakan pada algoritme regresi logistik adalah `max_iter=2000` dan `random_state=42`. `max_iter` menentukan jumlah iterasi maksimum yang diizinkan untuk algoritme optimisasi saat meminimalkan fungsi biaya. `random_state` mengontrol seeding generator angka acak yang digunakan dalam model. Algoritme-algoritme lainnya selain regresi logistik akan menggunakan **parameter default**.
 
 1. Logistic Regression (Regresi Logistik):
   - Kelebihan:
@@ -254,23 +254,39 @@ Akan diuji cross validation 6 jenis model (regresi logistik, K-Nearest Neighbors
     - Tuning parameter bisa cukup rumit.
     - Mungkin kurang stabil pada dataset yang lebih kecil atau sangat terstruktur dibandingkan XGBoost.
 
+### Benchmark Model: K-Fold
+
+![Gambar14_2](https://github.com/user-attachments/assets/dd027b0a-38a8-4e88-a6b1-7347045e1405)
+
 Cross-validation adalah teknik yang sangat penting untuk menguji kinerja model secara lebih robust. Dengan membagi data ke dalam beberapa lipatan dan melatih model pada sebagian data, kemudian menguji pada bagian yang lain, akan didapatkan gambaran yang lebih baik tentang bagaimana model akan bekerja di data yang belum pernah dilihat sebelumnya.
+- StratifiedKFold digunakan untuk membagi data menjadi beberapa "fold" atau lipatan untuk validasi silang (cross-validation). Stratifikasi memastikan bahwa distribusi label target (`y_train`) terjaga di setiap fold.
+- `n_splits=5`: Data dibagi menjadi 5 lipatan (folds) untuk cross-validation.
+- `shuffle=True`: Data akan diacak sebelum dibagi menjadi lipatan.
+- `random_state=42`: Penetapan nilai acak untuk memastikan hasil yang dapat direproduksi.
 
 ### Benchmark Model: Test Data
 
-![Gambar15](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar15.jpg)
+![Gambar15_1](https://github.com/user-attachments/assets/35bd8fab-818b-4d61-89fe-2d6bb3744a05)
 
-Setelah menjalankan kode ini, hasilnya adalah tabel yang menunjukkan evaluasi dari berbagai model klasifikasi berdasarkan metrik, seperti **precision**, **recall**, **f1-score**, **accuracy**, dan **weighted avg** untuk setiap model yang diuji. Tabel yang ditampilkan mengurutkan model berdasarkan skor **F1-macro**, sehingga model dengan performa terbaik (berdasarkan F1-macro) akan berada di atas. **XGBoost** memiliki F1-macro tertinggi (0.960177), diikuti oleh **Random Forest**, **Decision Tree**, **LightGBM**, dan **Logistic Regression**.
+- `models = [...]`: Daftar model yang digunakan untuk benchmarking. Model-model tersebut adalah regresi logistik, KNN (K-Nearest Neighbors), pohon keputusan, Random Forest, XGBoost, dan LightGBM.
+- `def y_pred_func(...)`: Fungsi ini bertujuan untuk melatih model dan mengembalikan hasil prediksi berdasarkan data tes. Pipeline diterapkan untuk menggabungkan preprocessing dan model pelatihan. Setelah melatih model, fungsi ini akan menghasilkan prediksi menggunakan data uji (`x_test`) dan mengembalikannya.
+- `for i, j in zip(models, models_name)`: Looping untuk melakukan prediksi, dimana setiap model dalam daftar `models` dilatih dan diuji pada data uji (`x_test`). Model dilatih dengan data pelatihan (`x_train` dan `y_train`), kemudian hasil prediksinya dihitung menggunakan `model.predict()`.
 
-![Gambar16](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar16.jpg)
+### Pemilihan Model Terbaik dari Benchmark Model
+
+Berdasarkan eksperimen yang telah dilakukan pada tahapan pengembangan model, diperoleh model machine learning yang berkinerja terbaik, yaitu XGBoost. Hal ini berdasarkan hasil dari skor F1-macro.
+
+### Pengujian Oversampling dengan K-Fold Cross Validation ###
+
+Oversampling adalah teknik yang digunakan dalam pengolahan data tidak seimbang (imbalanced dataset) untuk menangani situasi dimana satu kelas memiliki jauh lebih banyak sampel dibandingkan kelas lainnya. Pengujian oversampling bertujuan untuk meningkatkan kualitas model dengan mengurangi bias yang mungkin timbul akibat ketidakseimbangan kelas.
 
 ### Hyperparameter Tuning
 
-RandomizedSearchCV digunakan untuk mencari kombinasi terbaik dari hyperparameter untuk model XGBoost. Pendekatan ini memungkinkan pencarian di berbagai kombinasi hyperparameter tanpa melakukan pencarian menyeluruh (seperti pada GridSearchCV), yang lebih efisien pada dataset besar.
+Hyperparameter digunakan untuk meng-custom model dan mengontrol proses training sesuai dengan dataset atau permasalahan yang ingin diselesaikan. Sementara hyperparameter tuning dilakukan dengan tujuan untuk memperoleh konfigurasi yang paling optimal untuk melatih model machine learning. Pada praktiknya, proses hyperparameter tuning ini dapat dijalankan secara manual dengan mencoba berbagai konfigurasi hyperparameter yang ada hingga diperoleh konfigurasi yang paling optimal. Cara lainnya yaitu dengan melakukan hyperparameter tuning secara otomatis dengan bantuan beberapa algoritme, salah satunya adalah random search. Pada proyek ini digunakan RandomizedSearchCV untuk mencari kombinasi terbaik dari hyperparameter untuk model XGBoost. Pendekatan ini memungkinkan pencarian di berbagai kombinasi hyperparameter tanpa melakukan pencarian menyeluruh (seperti pada GridSearchCV), yang lebih efisien pada dataset besar.
 
-![Gambar19](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar19.jpg)
+![Gambar19](https://github.com/user-attachments/assets/f4287b83-cf1e-49a0-b835-ed377de3c554)
 
-Di sini, kita mendefinisikan **ruang pencarian untuk hyperparameter** yang akan dicoba selama pencarian acak (**RandomizedSearchCV**).
+**Ruang pencarian untuk hyperparameter** yang akan dicoba selama pencarian acak (**RandomizedSearchCV**) adalah:
 - **`'n_estimators': [50, 100, 200]`**: Jumlah pohon yang akan dibangun dalam model XGBoost.
 - **`'max_depth': [None, 10, 20, 30]`**: Kedalaman maksimum pohon. Kedalaman yang lebih besar memungkinkan model untuk menangkap lebih banyak detail dalam data, tetapi berisiko overfitting.
 - **`'min_samples_split': [2, 5, 10]`**: Jumlah sampel minimum yang diperlukan untuk membagi node. Ini membantu dalam mencegah overfitting dengan mengatur seberapa sensitif pembagian pohon.
@@ -279,7 +295,7 @@ Di sini, kita mendefinisikan **ruang pencarian untuk hyperparameter** yang akan 
 
 Kombinasi hyperparameter terbaik yang ditemukan setelah pencarian acak kemudian disimpan sebagai model terbaik dan model terbaik dilatih dengan data pelatihan.
 
-![Gambar20](https://github.com/gunawan-ganda/Proyek-Pertama/blob/main/Gambar20.jpg)
+![Gambar20](https://github.com/user-attachments/assets/99dd4ace-12eb-4958-b9e5-2827f79701d6)
 
 ## Evaluation
 
