@@ -314,7 +314,7 @@ Berdasarkan eksperimen yang telah dilakukan pada tahapan-tahapan sebelumnya, dip
 
 ### Fitur Penting
 
-Berikutnya dilakukan analisis untuk memvisualisasikan importance (pentingnya) fitur dalam sebuah model machine learning dengan menggunakan atribut `feature_importances_`. Dari hasil visualisasi, terlihat bahwa 3 fitur yang penting dari dataset yang memengaruhi churn pelanggan adalah Tenure, Complain, dan PreferedOrderCat. Hasil ini telah memenuhi tujuan dari solution statement yang telah ditentukan sebelumnya
+Berikutnya dilakukan analisis untuk memvisualisasikan importance (pentingnya) fitur dalam sebuah model machine learning dengan menggunakan atribut `feature_importances_`. Dari hasil visualisasi, terlihat bahwa 3 fitur yang penting dari dataset yang memengaruhi churn pelanggan adalah Tenure, Complain, dan PreferedOrderCat. Hasil ini telah memenuhi tujuan dari solution statement yang telah ditentukan sebelumnya.
 
 ![Gambar22](https://github.com/user-attachments/assets/fb30f544-2005-40ed-8156-3431ea91ecec)
 
